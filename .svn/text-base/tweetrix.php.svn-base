@@ -48,15 +48,13 @@ class Tweetrix
 	public $title			= 'tweetrix';
 	private $divid			= 'tweetrix';
 	
-	public static $options		= array();
-	
 	/*-CONSTRUCT----------------------------------------------------------*/
 	//public function __construct($params)
 	public function Tweetrix($params=array())
 	{
 		foreach ($params as $k => $v)
 			$this->$k = $v;
-		self::$options = array(
+		$this->options = array(
 			'user'			=> $this->user,
 			'nTweets'		=> $this->nTweets,
 			'minRepetitions'	=> $this->minRepetitions,
@@ -103,10 +101,10 @@ class Tweetrix
 	<?php
 	}
 	
-	public function getOptions()
+	public static function getOptions()
 	{
 		return !($options = get_option('Tweetrix'))
-			? self::$options
+			? $this->options
 			: $options;
 	}
 }
