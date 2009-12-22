@@ -4,7 +4,7 @@ Plugin Name: tweetrix
 Plugin URI: http://wordpress.org/#
 Description: a configurable twitter word cloud
 Author: Oliver C Dodd
-Version: 1.0
+Version: 1.0.2
 Author URI: http://01001111.net
   
   Copyright (c) 2009 Oliver C Dodd - http://01001111.net
@@ -33,45 +33,34 @@ Author URI: http://01001111.net
 class Tweetrix
 {
 	/*-VARIABLES----------------------------------------------------------*/
-	private $user			= "twitterapi";
-	private $nTweets		= 200;
-	private $minRepetitions		= 1;
-	private $minWordLength		= 3;
-	private $wordFilter		= 'the be to of and a in that have i it for not on with he as you do at this but his by from they we say her she or an will my one all would there their what so up out if about who get which go me when make can like time no just him know take people into year your good some could them see other than then now look only come its over  think  also back after use two how our work first well way even new want because any these give day most us';
-	private $minFontSize		= .8;
-	private $maxFontSize		= 2;
-	private $deltaSize		= .2;
-	private $fontUnits		= "em";
-	private $filterUsernames	= true;
-	private $filterURLs		= true;
-	private $filterNumbers		= true;
-	public $title			= 'tweetrix';
-	private $divid			= 'tweetrix';
+	public $options			= array(
+		'user'			=> "twitterapi",
+		'nTweets'		=> 200,
+		'minRepetitions'	=> 1,
+		'minWordLength'		=> 3,
+		'wordFilter'		=> 'the be to of and a in that have i it for not on with he as you do at this but his by from they we say her she or an will my one all would there their what so up out if about who get which go me when make can like time no just him know take people into year your good some could them see other than then now look only come its over  think  also back after use two how our work first well way even new want because any these give day most us',
+		'minFontSize'		=> .8,
+		'maxFontSize'		=> 2,
+		'deltaSize'		=> .2,
+		'fontUnits'		=> "em",
+		'filterUsernames'	=> true,
+		'filterURLs'		=> true,
+		'filterNumbers'		=> true,
+		'title'			=> 'tweetrix',
+		'divid'			=> 'tweetrix',
+	);
 	
-	public static $options		= array();
+	const ID			= 'Tweetrix';
 	
 	/*-CONSTRUCT----------------------------------------------------------*/
 	//public function __construct($params)
-	public function Tweetrix($params=array())
+	public function Tweetrix()
 	{
+		$params = $this->getOptions();
 		foreach ($params as $k => $v)
+			$this->options[$k] = $v;
+		foreach ($this->options as $k => $v)
 			$this->$k = $v;
-		self::$options = array(
-			'user'			=> $this->user,
-			'nTweets'		=> $this->nTweets,
-			'minRepetitions'	=> $this->minRepetitions,
-			'minWordLength'		=> $this->minWordLength,
-			'wordFilter'		=> $this->wordFilter,
-			'minFontSize'		=> $this->minFontSize,
-			'maxFontSize'		=> $this->maxFontSize,
-			'deltaSize'		=> $this->deltaSize,
-			'fontUnits'		=> $this->fontUnits,
-			'filterUsernames'	=> $this->filterUsernames,
-			'filterURLs'		=> $this->filterURLs,
-			'filterNumbers'		=> $this->filterNumbers,
-			'title'			=> $this->title,
-			'divid'			=> $this->divid,
-		);
 	}
 	/*-OUPUT--------------------------------------------------------------*/
 	public function output()
@@ -105,8 +94,8 @@ class Tweetrix
 	
 	public function getOptions()
 	{
-		return !($options = get_option('Tweetrix'))
-			? self::$options
+		return !($options = get_option(Tweetrix::ID))
+			? $this->options
 			: $options;
 	}
 }
@@ -123,7 +112,8 @@ function tweetrix_number($n,$min=null,$max=null) {
 /*-GET OPTIONS--------------------------------------------------------*/
 function widget_Tweetrix_options()
 {
-	$options = Tweetrix::getOptions();
+	$t = new Tweetrix();
+	$options = $t->getOptions();
 	if($_POST['Tweetrix-submit'])
 	{
 		$options = array(
@@ -148,7 +138,7 @@ function widget_Tweetrix_options()
 		$options['minFontSize']		= tweetrix_number($options['minFontSize'],0);
 		$options['maxFontSize']		= tweetrix_number($options['maxFontSize'],0);
 		$options['deltaSize']		= tweetrix_number($options['deltaSize'],0);
-		update_option('Tweetrix',$options);
+		update_option(Tweetrix::ID,$options);
 	}
 	?>
 	<p>	Twitter User:
@@ -206,13 +196,13 @@ function widget_Tweetrix_init()
 	function widget_Tweetrix($args)
 	{
 		extract($args);
-		$t = new Tweetrix(Tweetrix::getOptions());
+		$t = new Tweetrix();
 		echo $before_widget.$before_title.$t->title.$after_title;
 		$t->output();
 		echo $after_widget;
 	}
-	register_sidebar_widget('Tweetrix','widget_Tweetrix');
-	register_widget_control('Tweetrix','widget_Tweetrix_options');
+	register_sidebar_widget(Tweetrix::ID,'widget_Tweetrix');
+	register_widget_control(Tweetrix::ID,'widget_Tweetrix_options');
 }
 add_action('plugins_loaded', 'widget_Tweetrix_init');
 ?>
