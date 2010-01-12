@@ -13,8 +13,8 @@ The tweetrix widget/plugin will allow you to display a word cloud from up to 200
 
 * the user (or the twitterapi feed by default)
 * the number of tweets
-* the minimum number of repetitions required to include the word
-* the minimum number of letters required to include the word
+* the minimum number of repetitions required to include a particular word
+* the minimum number of letters required to include a particular word
 * the minimum and maximum font sizes, the size increment, and their units
 * a word filter to exclude common words or other undesirables
 * filters for @usernames, links, and numbers
@@ -49,13 +49,13 @@ Where $params is an associative array containing any of the following keys (desc
 
 == Frequently Asked Questions ==
 
-= Why didn't you support authentication? =
+= Why don't you support authentication? =
 
 Because the processing is done in Javascript, not PHP, so your password would be clearly visible.
 
 = Then why is this in Javascript and not PHP? =
 
-Twitter imposes a 100 request per hour limit on single users or IPs.  If this was written in PHP, all the requests would come from one single source (your web host).  In this case, once you exceeded 100 views in an hour, visitors to your blog would no longer see any content your awesome little tweetrix plugin.  By writing the functionality in javascript, the requests are coming from the client rather than your server.
+Twitter imposes a 100 request per hour limit on single users or IPs.  If this was written in PHP, all the requests would come from one single source (your web host).  In this case, once you exceeded 100 views in an hour, visitors to your blog would no longer receive any content for the tweetrix plugin.  By writing the functionality in javascript, the requests are coming from the client rather than your server.
 
 = How do I change the style? =
 
