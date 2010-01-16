@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: tweetrix
-Plugin URI: http://wordpress.org/#
+Plugin URI: http://wordpress.org/extend/plugins/tweetrix/
 Description: a configurable twitter word cloud
 Author: Oliver C Dodd
 Version: 1.0.2

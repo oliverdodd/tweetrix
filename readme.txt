@@ -1,5 +1,6 @@
 === tweetrix ===
 Contributors: 01001111
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=11216463
 Tags: widget, twitter, cloud, javascript
 Requires at least: 2.0.2
 Tested up to: 2.9
@@ -64,3 +65,22 @@ In your theme css file (or somewhere on your page), add styles for #tweetrix (if
 == Screenshots ==
 
 None at the moment.
+
+== Changelog ==
+
+= 1.0.2 =
+* Altered the way options are processed.
+
+= 1.0.1 =
+* Fixed a bug that broke the widget page.
+
+= 1.0.0 =
+* First release.
+
+== Upgrade Notice ==
+
+= 1.0.2 =
+* Altered the way options are processed (which previously had a few issues).
+
+= 1.0.1 =
+* Fixed a bug that broke the widget page.
